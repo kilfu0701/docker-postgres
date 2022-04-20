@@ -5,8 +5,8 @@ MAINTAINER BoRu Su <kilfu0701@gmail.com>
 ENV PG_MAJOR 14
 ENV PG_VERSION 14.2
 ENV PG_SHA256 2cf78b2e468912f8101d695db5340cf313c2e9f68a612fb71427524e8c9a977a
-ENV PG_BLOCKSIZE 32
-ENV PG_WAL_BLOCKSIZE 64
+#ENV PG_BLOCKSIZE 32
+#ENV PG_WAL_BLOCKSIZE 64
 
 # add postgres user and group
 RUN set -eux; \
@@ -97,8 +97,8 @@ RUN set -eux; \
         --with-icu \
         --with-llvm \
         --with-lz4 \
-        --with-blocksize=$PG_BLOCKSIZE \
-        --with-wal-blocksize=$PG_WAL_BLOCKSIZE \
+        #--with-blocksize=$PG_BLOCKSIZE \
+        #--with-wal-blocksize=$PG_WAL_BLOCKSIZE \
     ; \
     make -j "$(nproc)" world; \
     make install-world; \
