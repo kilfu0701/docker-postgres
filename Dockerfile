@@ -18,7 +18,7 @@ RUN set -eux; \
 # update yum & install packages
 RUN set -eux; \
     apt update -y; \
-    apt install -y build-essential wget vim tzdata zstd gosu procps
+    apt install -y build-essential wget vim tzdata zstd gosu procps locales dialog locales-all
 
 # install dependencies libs for compile
 RUN set -eux; \
@@ -44,7 +44,19 @@ RUN set -eux; \
         pax-utils;
 
 # instal needed perl modules
-RUN cpan Data::Dumper Error Git TermReadKey Test::Harness Thread::Queue XML::Parser srpm::macros IPC::Run
+RUN cpan install App::cpanminus
+RUN cpanm --force YAML \
+        CPAN::DistnameInfo \
+        Data::Dumper \
+        Error \
+        Git \
+        Term::ReadKey \
+        Test::Harness \
+        Thread::Queue \
+        XML::Parser \
+        Test::More \
+        Time::HiRes \
+        IPC::Run
 
 # download source and compile
 RUN set -eux; \
