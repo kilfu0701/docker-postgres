@@ -6,8 +6,6 @@ docker images for Postgres
 
 - Debian 11
 - Postgres 14.2
-  - --with-blocksize=32
-  - --with-wal-blocksize=64
 
 ## Images on Docker Hub
 
