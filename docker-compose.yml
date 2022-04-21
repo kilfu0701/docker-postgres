@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.7'
 services:
 
   pg14:
@@ -10,7 +10,8 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
        - ./volume/postgresql/data:/var/lib/postgresql/data
-    #command: tail -f /dev/null
+    privileged: true
+    init: true
 
 networks:
   default:
