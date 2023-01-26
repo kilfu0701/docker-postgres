@@ -18,7 +18,7 @@ RUN set -eux; \
 # update yum & install packages
 RUN set -eux; \
     apt update -y; \
-    apt install -y build-essential wget vim tzdata zstd gosu procps locales dialog locales-all
+    apt install -y build-essential wget vim tzdata zstd gosu procps locales dialog locales-all git 
 
 # install dependencies libs for compile
 RUN set -eux; \
@@ -32,7 +32,7 @@ RUN set -eux; \
         python3-dev \
         libreadline-dev \
         libssl-dev \
-        libxml2-dev \
+        #libxml2-dev \
         libxslt-dev \
         libedit-dev \
         libkrb5-dev \
@@ -57,6 +57,17 @@ RUN cpanm --force YAML \
         Test::More \
         Time::HiRes \
         IPC::Run
+
+RUN apt-get install -y unzip autoconf libtool automake
+
+RUN set -eux; \
+    wget -O libxml2-v2.9.13.zip "https://github.com/kilfu0701/libxml2/archive/refs/heads/v2.9.13-pg14xml-patch.zip" && \
+    unzip libxml2-v2.9.13.zip && \
+    cd libxml2-2.9.13-pg14xml-patch && \
+    ./autogen.sh && \
+    CFLAGS='-O2 -fno-semantic-interposition' ./configure && \
+    make && \
+    make install
 
 # download source and compile
 RUN set -eux; \
